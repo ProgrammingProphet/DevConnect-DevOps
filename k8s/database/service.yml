@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: mongodb-service
+  namespace: devconnect
+spec:
+  selector:
+    app: mongodb
+  ports:
+    - protocol: TCP #
+      port: 27017 # external port
+      targetPort: 27017 # internal port
+
+#command to create service: kubectl apply -f database/service.yml
+#command to delete service: kubectl delete -f database/service.yml

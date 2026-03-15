@@ -1,0 +1,28 @@
+kind: VerticalPodAutoscaler
+apiVersion: autoscaling.k8s.io/v1
+metadata:
+  name: backend-vpa
+  namespace: devconnect
+spec:
+  targetRef:
+    apiVersion: "apps/v1"
+    kind: Deployment
+    name: backend-deployment
+  updatePolicy:
+    updateMode: "Auto"
+  resourcePolicy:
+    containerPolicies:
+      - containerName: "backend-devconnect"
+        minAllowed: 
+          cpu: "100m"
+          memory: "128Mi"
+        maxAllowed: 
+          cpu: "500m"
+          memory: "512Mi"
+        controlledResources: ["cpu", "memory"]
+
+#command to create vpa: kubectl apply -f vpa.yml
+#command to delete vpa: kubectl delete -f vpa.yml
+
+#command to check vpa: kubectl get vpa -n devconnect
+#command to check vpa details: kubectl describe vpa backend-vpa -n devconnect

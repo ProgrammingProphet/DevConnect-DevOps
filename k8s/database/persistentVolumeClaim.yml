@@ -1,0 +1,15 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: mongodb-pvc
+  namespace: devconnect
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+
+#command to create persistent volume claim: kubectl apply -f database/persistentVolumeClaim.yml
+#command to delete persistent volume claim: kubectl delete -f database/persistentVolumeClaim.yml
+

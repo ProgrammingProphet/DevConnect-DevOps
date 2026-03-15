@@ -1,0 +1,29 @@
+kind: Deployment # FIXED: Changed from Namespace to Deployment
+apiVersion: apps/v1 # FIXED: Deployment uses apps/v1
+metadata:
+  name: frontend-deployment # FIXED: Name corrected over 'devconnect'
+  namespace: devconnect
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend-devconnect
+  template:
+    metadata:
+      labels:
+        app: frontend-devconnect
+    spec:
+      containers:
+        - name: frontend-devconnect
+          image: programmingprobhet/devconnect-frontend:latest
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "256m"
+            requests:
+              memory: "64Mi"
+              cpu: "128m"
+          ports:
+            - containerPort: 80 # internal port inside the container
+              # FIXED: 'portMapping' is invalid here. The external port is handled by a Service.

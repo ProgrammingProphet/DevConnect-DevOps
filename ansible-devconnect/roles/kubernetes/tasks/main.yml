@@ -1,0 +1,15 @@
+---
+- name: Configure kubeconfig for EKS cluster
+  command: aws eks update-kubeconfig --region {{ aws_region }} --name {{ cluster_name }}
+  register: kubeconfig_result
+  changed_when: "'Updated context' in kubeconfig_result.stdout or 'Added new context' in kubeconfig_result.stdout"
+
+- name: Create required namespaces
+  kubernetes.core.k8s:
+    name: "{{ item }}"
+    api_version: v1
+    kind: Namespace
+    state: present
+  loop:
+    - "{{ app_namespace }}"
+    - argocd

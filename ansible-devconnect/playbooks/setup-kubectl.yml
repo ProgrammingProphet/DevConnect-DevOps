@@ -1,0 +1,6 @@
+---
+- name: Setup kubectl and configure EKS cluster
+  hosts: eks_admin
+  gather_facts: no
+  roles:
+    - kubernetes

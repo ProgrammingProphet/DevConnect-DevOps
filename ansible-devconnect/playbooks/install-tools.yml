@@ -1,0 +1,6 @@
+---
+- name: Install required tools on the control node
+  hosts: local
+  gather_facts: yes
+  roles:
+    - tools

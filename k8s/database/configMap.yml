@@ -1,0 +1,11 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: mongodb-config
+  namespace: devconnect
+data:
+  MONGO_INITDB_ROOT_USERNAME: admin
+  MONGO_INITDB_ROOT_PASSWORD: password123
+
+#command to create configmap: kubectl apply -f configMap.yml
+#command to delete configmap: kubectl delete -f configMap.yml

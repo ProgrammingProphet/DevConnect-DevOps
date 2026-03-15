@@ -1,0 +1,56 @@
+---
+- name: Ensure dependencies are installed
+  become: yes
+  apt:
+    name: 
+      - curl
+      - unzip
+      - apt-transport-https
+      - gnupg2
+    state: present
+    update_cache: yes
+
+- name: Install AWS CLI v2
+  shell: |
+    if ! command -v aws &> /dev/null; then
+      curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+      unzip -q awscliv2.zip
+      sudo ./aws/install
+      rm -rf aws awscliv2.zip
+    fi
+  args:
+    executable: /bin/bash
+  changed_when: false
+
+- name: Install kubectl
+  shell: |
+    if ! command -v kubectl &> /dev/null; then
+      curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+      sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+      rm kubectl
+    fi
+  args:
+    executable: /bin/bash
+  changed_when: false
+
+- name: Install Helm
+  shell: |
+    if ! command -v helm &> /dev/null; then
+      curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+      chmod 700 get_helm.sh
+      ./get_helm.sh
+      rm get_helm.sh
+    fi
+  args:
+    executable: /bin/bash
+  changed_when: false
+
+- name: Install eksctl
+  shell: |
+    if ! command -v eksctl &> /dev/null; then
+      curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+      sudo mv /tmp/eksctl /usr/local/bin
+    fi
+  args:
+    executable: /bin/bash
+  changed_when: false

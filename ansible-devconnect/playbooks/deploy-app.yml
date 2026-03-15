@@ -1,0 +1,9 @@
+---
+- name: Deploy the application using ArgoCD GitOps
+  hosts: eks_admin
+  gather_facts: no
+  tasks:
+    - name: Trigger manual sync of ArgoCD application (optional)
+      command: argocd app sync devconnect-app
+      ignore_errors: yes
+      changed_when: false

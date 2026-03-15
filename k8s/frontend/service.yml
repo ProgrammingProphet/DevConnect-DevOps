@@ -1,0 +1,22 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: frontend-service  
+  namespace: devconnect
+spec:
+  selector:
+    app: frontend-devconnect # must match the label of the pod
+  ports:
+    - protocol: TCP #
+      port: 80 # external port
+      targetPort: 3000 # internal port
+
+
+      # portMapping:  # for LoadBalancer
+      #   port: 80 # external port
+      #   targetPort: 3000 # internal port
+
+#you can use portMapping for LoadBalancer
+# locally you can see the service at http://localhost:80
+#command to get the external ip of the service: kubectl get svc frontend-devconnect -n devconnect
+# port-forwarding: kubectl port-forward svc/frontend-devconnect 80:80 -n devconnect

@@ -1,0 +1,42 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: backend-devconnect
+  namespace: devconnect
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-devconnect # FIXED: corrected typo from 'backend-devconnec' to match template label
+  template:
+    metadata:
+      name: backend-deployment
+      labels:
+        app: backend-devconnect
+    spec:
+      containers:
+        - name: backend-devconnect
+          image: programmingprobhet/devconnect-backend:latest
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "256m"
+            requests:
+              memory: "64Mi"
+              cpu: "128m"
+          ports:
+            - containerPort: 5000 # internal port inside the container
+              # FIXED: 'portMapping' is invalid in container ports. External exposure is handled by the Service.
+          env:
+            - name: MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-secret
+                  key: MONGODB_URI
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-secret
+                  key: JWT_SECRET
+
+# include comments to explain the code

@@ -1,0 +1,14 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: mongodb-pv
+spec:
+  capacity:
+    storage: 500Mi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /data/mongodb
+
+#command to create persistent volume: kubectl apply -f database/persistentVolume.yml
+#command to delete persistent volume: kubectl delete -f database/persistentVolume.yml
