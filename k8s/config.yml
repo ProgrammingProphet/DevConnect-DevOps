@@ -1,14 +1,13 @@
 apiVersion: kind.x-k8s.io/v1alpha4 #api version of kind kind.x-k8s.io/v1alpha4 is the latest version
 kind: Cluster
-metadata:
-  name: devconnect-cluster
 nodes:
   - role: control-plane
-    image: kindest/node:v1.16.4
+    image: kindest/node:v1.29.4
   - role: worker
-    image: kindest/node:v1.16.4
+    image: kindest/node:v1.29.4
   - role: worker
-    image: kindest/node:v1.16.4
+    image: kindest/node:v1.29.4
+
 
 #command to create cluster: kind create cluster --name devconnect-cluster
 #use config.yml file to create cluster: kind create cluster --config config.yml

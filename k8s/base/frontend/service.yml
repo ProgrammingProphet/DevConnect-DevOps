@@ -9,7 +9,7 @@ spec:
   ports:
     - protocol: TCP #
       port: 80 # external port
-      targetPort: 3000 # internal port
+      targetPort: 80 # internal port
 
 
       # portMapping:  # for LoadBalancer

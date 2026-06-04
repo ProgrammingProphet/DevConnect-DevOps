@@ -1,7 +1,7 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: backend-devconnect
+  name: backend-deployment
   namespace: devconnect
 spec:
   replicas: 1
@@ -19,11 +19,11 @@ spec:
           image: programmingprobhet/devconnect-backend:latest
           resources:
             limits:
+              memory: "256Mi"
+              cpu: "500m"
+            requests:
               memory: "128Mi"
               cpu: "256m"
-            requests:
-              memory: "64Mi"
-              cpu: "128m"
           ports:
             - containerPort: 5000 # internal port inside the container
               # FIXED: 'portMapping' is invalid in container ports. External exposure is handled by the Service.
